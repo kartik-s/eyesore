@@ -6,7 +6,7 @@ int main(void)
 {
 	Engine e;
 
-	e.makeWindow(400, 300, "die", false);
+	e.makeWindow(400, 300, "eyesore", false);
 	e.run();
 
 	return 0;
