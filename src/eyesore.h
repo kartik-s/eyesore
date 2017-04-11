@@ -1,5 +1,5 @@
-#ifndef EYESORE
-#define EYESORE
+#ifndef EYESORE_H
+#define EYESORE_H
 
 #include "Window.h"
 #include "Engine.h"
