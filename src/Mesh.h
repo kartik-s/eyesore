@@ -13,11 +13,13 @@ namespace eyesore {
 		public:
 			Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices);
 
-			void render();
+			void render() const;
 
 		private:
 			std::vector<Vertex> vertices;
 			std::vector<GLuint> indices;
+
+			GLuint vao, vbo, ebo;
 	};
 }
 
