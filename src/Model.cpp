@@ -14,7 +14,8 @@ using std::string;
 using std::vector;
 
 static Mesh extractMesh(const aiMesh *mesh)
-{ vector<Vertex> vertices;
+{
+	vector<Vertex> vertices;
 	vector<GLuint> indices;
 
 	for (int i = 0; i < mesh->mNumVertices; i++) {	
