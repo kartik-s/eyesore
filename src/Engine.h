@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "Scene.h"
 #include "Window.h"
 
 namespace eyesore {
@@ -13,10 +14,12 @@ namespace eyesore {
 
 			void makeWindow(int height, int width, std::string title,
 					bool fullscreen);
+			void setScene(eyesore::Scene scene);
 			void run();
 
 		private:
 			eyesore::Window *window;
+			eyesore::Scene scene;
 	};
 }
 

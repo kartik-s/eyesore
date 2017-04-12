@@ -43,13 +43,19 @@ void eyesore::Engine::makeWindow(int width, int height, string title, bool fulls
 	glfwMakeContextCurrent(window->get());
 }
 
+void eyesore::Engine::setScene(Scene scene)
+{
+	this->scene = scene;
+}
+
 void eyesore::Engine::run()
 {
 	while (!glfwWindowShouldClose(window->get())) {
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glfwSwapBuffers(window->get());
+		scene.render();
 
+		glfwSwapBuffers(window->get());
 		glfwPollEvents();
 	}
 }
