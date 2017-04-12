@@ -13,7 +13,7 @@ eyesore::Window::~Window()
 	glfwDestroyWindow(window);
 }
 
-GLFWwindow *eyesore::Window::get()
+GLFWwindow *eyesore::Window::get() const
 {
 	return window;
 }

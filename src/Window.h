@@ -11,7 +11,7 @@ namespace eyesore {
 			Window(int width, int height, std::string &title, bool fullscreen);
 			~Window();
 
-			GLFWwindow *get();
+			GLFWwindow *get() const;
 
 		private:
 			GLFWwindow *window;
