@@ -13,6 +13,7 @@ namespace eyesore {
 		public:
 			Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices);
 
+			void setShader(eyesore::Shader shader);
 			void render() const;
 
 		private:
@@ -20,6 +21,7 @@ namespace eyesore {
 			std::vector<GLuint> indices;
 
 			GLuint vao, vbo, ebo;
+			Shader shader;
 	};
 }
 

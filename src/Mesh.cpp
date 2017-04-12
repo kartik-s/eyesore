@@ -35,8 +35,14 @@ eyesore::Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices):
 	glBindVertexArray(0);
 }
 
+void eyesore::Shader::setShader(Shader shader)
+{
+	this->shader = shader;
+}
+
 void eyesore::Mesh::render() const
 {
+	shader.use();
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indices.size() / 3, GL_UNSIGNED_INT, &indices[0]); 
 	glBindVertexArray(0);
