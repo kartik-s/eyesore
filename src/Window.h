@@ -8,7 +8,7 @@
 namespace eyesore {
 	class Window {
 		public:
-			Window(int width, int height, std::string title, bool fullscreen);
+			Window(int width, int height, std::string &title, bool fullscreen);
 			~Window();
 
 			GLFWwindow *get();

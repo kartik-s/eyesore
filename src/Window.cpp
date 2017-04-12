@@ -2,7 +2,7 @@
 
 using std::string;
 
-eyesore::Window::Window(int width, int height, string title, bool fullscreen)
+eyesore::Window::Window(int width, int height, string &title, bool fullscreen)
 {
 	window = glfwCreateWindow(width, height, title.c_str(),
 			fullscreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
