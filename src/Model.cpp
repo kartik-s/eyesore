@@ -14,8 +14,7 @@ using std::string;
 using std::vector;
 
 static Mesh extractMesh(const aiMesh *mesh)
-{
-	vector<Vertex> vertices;
+{ vector<Vertex> vertices;
 	vector<GLuint> indices;
 
 	for (int i = 0; i < mesh->mNumVertices; i++) {	
@@ -48,7 +47,7 @@ eyesore::Model::Model(const string &path)
 		meshes.push_back(extractMesh(scene->mMeshes[i]));
 }
 
-void eyesore::Model::render()
+void eyesore::Model::render() const
 {
 	for (const Mesh &mesh : meshes)
 		mesh.render();

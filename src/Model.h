@@ -10,9 +10,8 @@ namespace eyesore {
 	class Model {
 		public:
 			Model(const std::string &path);
-			~Model();
 
-			void render();
+			void render() const;
 
 		private:
 			std::vector<Mesh> meshes;
