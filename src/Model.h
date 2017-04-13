@@ -15,6 +15,8 @@ namespace eyesore {
 
 		private:
 			std::vector<Mesh> meshes;
+
+			static eyesore::Mesh extractMesh(const aiMesh *mesh);
 	};
 }
 
