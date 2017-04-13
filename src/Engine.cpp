@@ -41,6 +41,14 @@ void eyesore::Engine::makeWindow(int width, int height, string title, bool fulls
 	window = new Window(width, height, title, fullscreen);
 
 	glfwMakeContextCurrent(window->get());
+
+	glewExperimental = GL_TRUE;
+	glewInit();
+
+	int w, h;
+
+	glfwGetFramebufferSize(window->get(), &w, &h);
+	glViewport(0, 0, w, h);
 }
 
 void eyesore::Engine::setScene(Scene scene)
