@@ -1,6 +1,7 @@
 #include "Mesh.h"
 
-using std::string;
+using namespace eyesore;
+
 using std::vector;
 
 eyesore::Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices):
@@ -35,7 +36,7 @@ eyesore::Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices):
 	glBindVertexArray(0);
 }
 
-void eyesore::Shader::setShader(Shader shader)
+void eyesore::Mesh::setShader(ShaderProgram shader)
 {
 	this->shader = shader;
 }

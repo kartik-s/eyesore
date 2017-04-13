@@ -1,27 +1,29 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <string>
 #include <vector>
 
 #include <GL/glew.h>
+#include <assimp/scene.h>
 
 #include "Vertex.h"
+#include "ShaderProgram.h"
 
 namespace eyesore {
 	class Mesh {
 		public:
-			Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices);
+			Mesh(std::vector<eyesore::Vertex> vertices,
+					std::vector<GLuint> indices);
 
-			void setShader(eyesore::Shader shader);
+			void setShader(eyesore::ShaderProgram shader);
 			void render() const;
 
 		private:
-			std::vector<Vertex> vertices;
+			std::vector<eyesore::Vertex> vertices;
 			std::vector<GLuint> indices;
 
 			GLuint vao, vbo, ebo;
-			Shader shader;
+			eyesore::ShaderProgram shader;
 	};
 }
 
