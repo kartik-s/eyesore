@@ -10,7 +10,7 @@ namespace eyesore {
 			~ShaderProgram();
 
 			void attach(GLuint shader);
-			void use();
+			void use() const;
 
 		private:
 			GLuint id;
