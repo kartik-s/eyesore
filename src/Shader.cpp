@@ -7,6 +7,11 @@ using std::string;
 using std::ifstream;
 using std::stringstream;
 
+eyesore::Shader::Shader()
+{
+	id = 0;
+}
+
 eyesore::Shader::Shader(const string path, GLenum type)
 {
 	id = glCreateShader(type);

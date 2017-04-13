@@ -8,6 +8,7 @@
 namespace eyesore {
 	class Shader {
 		public:
+			Shader();
 			Shader(const std::string path, GLenum type);
 			~Shader();
 
