@@ -12,7 +12,7 @@ namespace eyesore {
 			Shader(const std::string path, GLenum type);
 			~Shader();
 
-			GLuint get();
+			GLuint get() const;
 
 		private:
 			GLuint id;

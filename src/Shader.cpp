@@ -33,7 +33,7 @@ eyesore::Shader::~Shader()
 	glDeleteShader(id);
 }
 
-GLuint eyesore::Shader::get()
+GLuint eyesore::Shader::get() const
 {
 	return id;
 }
