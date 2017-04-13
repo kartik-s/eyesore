@@ -3,7 +3,6 @@
 eyesore::ShaderProgram::ShaderProgram()
 {
 	id = glCreateProgram();
-	id = 0;
 }
 
 eyesore::ShaderProgram::~ShaderProgram()
@@ -18,6 +17,7 @@ void eyesore::ShaderProgram::attach(GLuint shader)
 
 void eyesore::ShaderProgram::use() const
 {
+	glLinkProgram(id);
 	glUseProgram(id);
 }
 
