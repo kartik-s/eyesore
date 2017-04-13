@@ -1,4 +1,7 @@
 #include "ShaderProgram.h"
+#include "Shader.h"
+
+using namespace eyesore;
 
 eyesore::ShaderProgram::ShaderProgram()
 {
@@ -10,9 +13,9 @@ eyesore::ShaderProgram::~ShaderProgram()
 	glDeleteProgram(id);
 }
 
-void eyesore::ShaderProgram::attach(GLuint shader)
+void eyesore::ShaderProgram::attach(Shader shader)
 {
-	glAttachShader(id, shader);
+	glAttachShader(id, shader.get());
 }
 
 void eyesore::ShaderProgram::use() const

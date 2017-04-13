@@ -3,13 +3,15 @@
 
 #include <GL/glew.h>
 
+#include "Shader.h"
+
 namespace eyesore {
 	class ShaderProgram {
 		public:
 			ShaderProgram();
 			~ShaderProgram();
 
-			void attach(GLuint shader);
+			void attach(eyesore::Shader shader);
 			void use() const;
 
 		private:
