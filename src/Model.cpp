@@ -7,6 +7,8 @@
 #include "Model.h"
 #include "Mesh.h"
 #include "Vertex.h"
+#include "Shader.h"
+#include "ShaderProgram.h"
 
 using namespace eyesore;
 using namespace glm;
@@ -22,6 +24,16 @@ eyesore::Model::Model(const string &path)
 
 	for (int i = 0; i < scene->mNumMeshes; i++)
 		meshes.push_back(extractMesh(scene->mMeshes[i]));
+
+	Shader vert("../shaders/vert.glsl", GL_VERTEX_SHADER);
+	Shader frag("../shaders/frag.glsl", GL_FRAGMENT_SHADER);
+	ShaderProgram shader;
+
+	shader.attach(vert);
+	shader.attach(frag);
+
+	for (Mesh &mesh : meshes)
+		mesh.setShader(shader);
 }
 
 void eyesore::Model::render() const
