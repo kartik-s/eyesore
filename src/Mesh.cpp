@@ -38,6 +38,13 @@ eyesore::Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices):
 	glBindVertexArray(0);
 }
 
+eyesore::Mesh::~Mesh()
+{
+	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &ebo);
+	glDeleteVertexArrays(1, &vao);
+}
+
 void eyesore::Mesh::render(ShaderProgram &shader, Camera &camera) const
 {
 	shader.use();
