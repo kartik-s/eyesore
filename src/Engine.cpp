@@ -23,7 +23,7 @@ void errorHandler(int error, const char *description)
 	exit(EXIT_FAILURE);
 }
 
-eyesore::Engine::Engine()
+eyesore::Engine::Engine(Camera camera): camera(camera)
 {
 	glfwSetErrorCallback(errorHandler);
 	glfwInit();
@@ -61,7 +61,7 @@ void eyesore::Engine::run()
 	while (!glfwWindowShouldClose(window->get())) {
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		scene.render();
+		scene.render(camera);
 
 		glfwSwapBuffers(window->get());
 		glfwPollEvents();

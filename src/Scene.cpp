@@ -2,19 +2,14 @@
 
 using namespace eyesore;
 
-eyesore::Scene::Scene(Camera camera): camera(camera)
-{
-
-}
-
 void eyesore::Scene::add(Model model)
 {
 	models.push_back(model);
 }
 
-void eyesore::Scene::render() const
+void eyesore::Scene::render(Camera &camera) const
 {
 	for (const Model &model : models)
-		model.render();
+		model.render(camera);
 }
 

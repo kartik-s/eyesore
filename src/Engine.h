@@ -4,12 +4,13 @@
 #include <string>
 
 #include "Scene.h"
+#include "Camera.h"
 #include "Window.h"
 
 namespace eyesore {
 	class Engine {
 		public:
-			Engine();
+			Engine(eyesore::Camera camera);
 			~Engine();
 
 			void makeWindow(int height, int width, std::string title,
@@ -20,6 +21,7 @@ namespace eyesore {
 		private:
 			eyesore::Window *window;
 			eyesore::Scene scene;
+			eyesore::Camera camera;
 	};
 }
 

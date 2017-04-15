@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <assimp/Importer.hpp>
@@ -24,22 +26,20 @@ eyesore::Model::Model(const string &path)
 
 	for (int i = 0; i < scene->mNumMeshes; i++)
 		meshes.push_back(extractMesh(scene->mMeshes[i]));
+}
 
+void eyesore::Model::render(Camera &camera) const
+{
 	Shader vert("../shaders/vert.glsl", GL_VERTEX_SHADER);
 	Shader frag("../shaders/frag.glsl", GL_FRAGMENT_SHADER);
 	ShaderProgram shader;
 
 	shader.attach(vert);
 	shader.attach(frag);
+	shader.link();
 
-	for (Mesh &mesh : meshes)
-		mesh.setShader(shader);
-}
-
-void eyesore::Model::render() const
-{
 	for (const Mesh &mesh : meshes)
-		mesh.render();
+		mesh.render(shader, camera);
 }
 
 eyesore::Mesh eyesore::Model::extractMesh(const aiMesh *mesh)

@@ -5,13 +5,14 @@
 #include <vector>
 
 #include "Mesh.h"
+#include "Camera.h"
 
 namespace eyesore {
 	class Model {
 		public:
 			Model(const std::string &path);
 
-			void render() const;
+			void render(eyesore::Camera &camera) const;
 
 		private:
 			std::vector<Mesh> meshes;
