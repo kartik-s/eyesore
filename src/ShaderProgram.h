@@ -11,7 +11,9 @@ namespace eyesore {
 			ShaderProgram();
 			~ShaderProgram();
 
+			GLuint get() const;
 			void attach(eyesore::Shader shader);
+			void link() const;
 			void use() const;
 
 		private:
