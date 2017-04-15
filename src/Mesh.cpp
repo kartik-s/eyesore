@@ -19,8 +19,8 @@ eyesore::Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices):
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0],
 			GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0],
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0],
 			GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
@@ -49,7 +49,9 @@ void eyesore::Mesh::render(ShaderProgram &shader, Camera &camera) const
 {
 	shader.use();
 	camera.use();
+
 	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, indices.size() / 3, GL_UNSIGNED_INT, &indices[0]); 
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0); 
+	glBindVertexArray(0);
 }
 
