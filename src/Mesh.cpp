@@ -1,6 +1,7 @@
 #include <cassert>
 
 #include "Mesh.h"
+#include "Material.h"
 
 using namespace eyesore;
 
@@ -11,7 +12,9 @@ eyesore::Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices):
 {
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
-	glGenBuffers(1, &ebo);
+
+	if (!indices.empty())
+		glGenBuffers(1, &ebo);
 
 	glBindVertexArray(vao);
 
@@ -19,9 +22,11 @@ eyesore::Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices):
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0],
 			GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0],
-			GL_STATIC_DRAW);
+	if (!indices.empty()) {
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0],
+				GL_STATIC_DRAW);
+	}
 
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
@@ -38,20 +43,22 @@ eyesore::Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices):
 	glBindVertexArray(0);
 }
 
-eyesore::Mesh::~Mesh()
+void eyesore::Mesh::render()
 {
-	glDeleteBuffers(1, &vbo);
-	glDeleteBuffers(1, &ebo);
-	glDeleteVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	if (!indices.empty())
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0); 
+	else
+		glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+
+	glBindVertexArray(0);
 }
 
-void eyesore::Mesh::render(ShaderProgram &shader, Camera &camera) const
+void eyesore::Mesh::render(Camera &camera, Material &material)
 {
-	shader.use();
 	camera.use();
-
-	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0); 
-	glBindVertexArray(0);
+	material.use();
+	render();
 }
 

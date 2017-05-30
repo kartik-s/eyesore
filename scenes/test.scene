@@ -1,0 +1,4 @@
+ENV loft.hdr
+
+MODEL teapot.obj scuffed-plastic
+

@@ -12,7 +12,7 @@ eyesore::ShaderProgram::ShaderProgram()
 
 eyesore::ShaderProgram::~ShaderProgram()
 {
-	glDeleteProgram(id);
+
 }
 
 GLuint eyesore::ShaderProgram::get() const

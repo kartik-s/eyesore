@@ -52,22 +52,19 @@ void eyesore::Engine::makeWindow(int width, int height, string title, bool fulls
 	input.setWindow(window);
 }
 
-void eyesore::Engine::setScene(Scene scene)
-{
-	this->scene = scene;
-}
-
-void eyesore::Engine::run()
+void eyesore::Engine::run(Scene &scene)
 {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_MULTISAMPLE);
+	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+	glDepthFunc(GL_LEQUAL);
 
 	while (!glfwWindowShouldClose(window->get())) {
 		glClearColor(0.95f, 0.95f, 0.95f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		input.dispatch();
-		scene.render(*camera);
+		scene.render();
 
 		glfwSwapBuffers(window->get());
 		glfwPollEvents();

@@ -1,22 +1,23 @@
-#include <glm/glm.hpp>
-
 #include "eyesore.h"
 #include "Scene.h"
 #include "Model.h"
 
+#include <glm/glm.hpp>
+
+using namespace std;
 using namespace eyesore;
 using namespace glm;
 
-int main(void)
+int main(int argc, char **argv)
 {
-	Camera c(vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, -1.0f), 4.0f/3.0f);
+	Camera *c = new Camera(vec3(-50.0f, 0.0f, 0.0f), 8.0f/5.0f);
 	Engine e(c);
-	Scene s;
 
-	e.makeWindow(400, 300, "eyesore", false);
-	s.add(Model("../models/teapot.obj"));
-	e.setScene(s);
-	e.run();
+	e.makeWindow(1366, 768, "eyesore", true);
+	Scene s("../scenes/test.scene", c);
+	e.run(s);
+
+	delete c;
 
 	return 0;
 }

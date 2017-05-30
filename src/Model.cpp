@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
@@ -17,47 +18,61 @@ using namespace glm;
 
 using std::string;
 using std::vector;
+using std::stringstream;
 
-eyesore::Model::Model(const string &path)
+const string eyesore::Model::MODEL_PATH = "../models/";
+
+eyesore::Model::Model(string description)
+{
+	stringstream s(description);
+	string name, mat;
+
+	s >> name;
+	
+	load(MODEL_PATH + name);
+
+	if (s >> mat)
+		material = new Material(mat);
+}
+
+void eyesore::Model::load(const string &path)
 {
 	Assimp::Importer importer;
-
-	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate);
+	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals);
 
 	for (int i = 0; i < scene->mNumMeshes; i++)
-		meshes.push_back(extractMesh(scene->mMeshes[i]));
+		meshes.push_back(extract(scene->mMeshes[i]));
 }
 
-void eyesore::Model::render(Camera &camera) const
+void eyesore::Model::render()
 {
-	Shader vert("../shaders/vert.glsl", GL_VERTEX_SHADER);
-	Shader frag("../shaders/frag.glsl", GL_FRAGMENT_SHADER);
-	ShaderProgram shader;
-
-	shader.attach(vert);
-	shader.attach(frag);
-	shader.link();
-
-	for (const Mesh &mesh : meshes)
-		mesh.render(shader, camera);
+	for (Mesh &mesh : meshes)
+		mesh.render();
 }
 
-eyesore::Mesh eyesore::Model::extractMesh(const aiMesh *mesh)
+void eyesore::Model::render(Camera &camera)
+{
+	for (Mesh &mesh : meshes)
+		mesh.render(camera, *material);
+}
+
+eyesore::Mesh eyesore::Model::extract(const aiMesh *mesh)
 {
 	vector<Vertex> vertices;
 	vector<GLuint> indices;
 
 	for (int i = 0; i < mesh->mNumVertices; i++) {	
 		aiVector3D pos = mesh->mVertices[i];
-		aiVector3D uv = mesh->mTextureCoords[0][i];
+		aiVector3D norm = mesh->mNormals[i];
 
-		if (mesh->HasNormals()) {
-			aiVector3D norm = mesh->mNormals[i];
+		if (mesh->HasTextureCoords(0)) {
+			aiVector3D uv = mesh->mTextureCoords[0][i];
+
 			vertices.push_back(Vertex(vec3(pos.x, pos.y, pos.z),
 						vec3(norm.x, norm.y, norm.z),
 						vec2(uv.x, uv.y)));
 		} else {
-			vertices.push_back(Vertex(vec3(pos.x, pos.y, pos.z), vec2(uv.x, uv.y)));
+			vertices.push_back(Vertex(vec3(pos.x, pos.y, pos.z), vec3(norm.x, norm.y, norm.z)));
 		}
 	}
 

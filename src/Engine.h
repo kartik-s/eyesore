@@ -3,25 +3,26 @@
 
 #include <string>
 
+#include "Window.h"
 #include "Scene.h"
 #include "Camera.h"
-#include "Window.h"
+#include "KeyboardHandler.h"
+#include "GamepadHandler.h"
 
 namespace eyesore {
 	class Engine {
 		public:
-			Engine(eyesore::Camera camera);
+			Engine(eyesore::Camera *camera);
 			~Engine();
 
 			void makeWindow(int height, int width, std::string title,
 					bool fullscreen);
-			void setScene(eyesore::Scene scene);
-			void run();
+			void run(eyesore::Scene &scene);
 
 		private:
 			eyesore::Window *window;
-			eyesore::Scene scene;
-			eyesore::Camera camera;
+			eyesore::Camera *camera;
+			eyesore::GamepadHandler input;
 	};
 }
 
